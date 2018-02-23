@@ -24,6 +24,7 @@
  */
 package org.spongepowered.api.entity.living.player;
 
+import com.flowpowered.math.vector.Vector3d;
 import org.spongepowered.api.data.DataHolder;
 import org.spongepowered.api.data.manipulator.mutable.entity.StatisticData;
 import org.spongepowered.api.entity.ArmorEquipable;
@@ -32,6 +33,7 @@ import org.spongepowered.api.profile.GameProfile;
 import org.spongepowered.api.service.permission.Subject;
 
 import java.util.Optional;
+import java.util.UUID;
 
 /**
  * A User is the data usually associated with a Player that is persisted
@@ -69,6 +71,31 @@ public interface User extends DataHolder, ArmorEquipable, Tamer, Subject {
      * @return The associated online Player, if available
      */
     Optional<Player> getPlayer();
+
+    /**
+     * Gets the position of this User
+     *
+     * @return The position of this User
+     */
+    Vector3d getPosition();
+
+    /**
+     * Gets the World UUID of this User.
+     *
+     * <p>May return empty when the world the player is in does not exist anymore</p>
+     *
+     * @return The World UUID of this User if found
+     */
+    Optional<UUID> getWorldUUID();
+
+    /**
+     * Sets the position and world of this User.
+     * <p>The UUID must belong to an existing world.</p>
+     *
+     * @param position The position to set
+     * @param world The world UUID to set
+     */
+    void setLocation(Vector3d position, UUID world);
 
     /**
      * Gets a copy of the {@link StatisticData} for this user.
